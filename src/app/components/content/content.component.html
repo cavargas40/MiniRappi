@@ -1,0 +1,115 @@
+<div class="container">
+  <h2>
+    Productos
+  </h2>
+
+  <table class="table-responsive highlight">
+    <thead>
+      <tr>
+        <th data-field="img">Foto</th>
+        <th data-field="name">Nombre</th>
+        <th data-field="price">Precio</th>
+        <th data-field="description">Descripcion</th>
+        <th data-field="add">Agregar</th>
+        <!--<th data-field="race" class="hide-on-small-only">Función</th>-->
+      </tr>
+    </thead>
+
+    <tbody>
+      <!--(click)="abretesesamo(guildmember)"-->
+      <tr *ngFor="let product of data.products">        
+        <td>
+          <img class="responsive-img circle" src="{{product.img}}" alt="">
+        </td>
+        <td>
+          {{product.name}}
+        </td>
+
+        <td>
+          ${{product.price}}
+        </td>
+        <td>
+          <p>
+          {{product.description}}
+          </p>
+        </td>
+        <td>
+          <i class="material-icons cursorpointer ">add</i>
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--<div class="container">
+  <div class="section">
+    <div class="fixed-action-btn toolbar">
+      <a class="btn-floating btn-large red">
+        <i class="large material-icons">search</i>
+      </a>
+      <ul>
+        <li class="waves-effect waves-light">
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <i class="material-icons prefix">search</i>
+                  <input id="icon_prefix" type="text" class="validate">
+                  <label for="icon_prefix">Busca un producto</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>-->
+
+
+<!--<li class="waves-effect waves-light">
+          <div class="row">
+            <div class="col s12 m12 center-align">              
+                <select class="browser-default center-align valign">
+                  <option>Categoria</option>
+                  <option>Ow Yea 1</option>
+                  <option>Ow Yea 2</option>              
+                </select>              
+            </div>
+          </div>
+        </li>
+        <li class="waves-effect waves-light">
+          <p>
+            <input type="radio" id="productStock" class=" with-gap" name="radioSearch" />
+            <label for="productStock" class="white-text truncate">Disponibles</label>
+          </p>
+        </li>
+        <li class="waves-effect waves-light">
+          <p>
+            <input type="radio" id="productEmpty" class=" with-gap" name="radioSearch" />
+            <label for="productEmpty" class="white-text truncate">Agotados</label>
+          </p>
+        </li>
+        <li class="waves-effect waves-light">
+          <p>
+            <input type="radio" id="productBestSeller" class=" with-gap" name="radioSearch" />
+            <label for="productBestSeller" class="white-text truncate">Mas Vendidos</label>
+            
+          </p>
+        </li>-->
+<!--<a href="#!"><i class="material-icons">insert_chart</i></a>
+        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">toc</i></a></li>
+        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>
+        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->

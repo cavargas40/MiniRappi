@@ -1,0 +1,22 @@
+nav ul a,
+nav .brand-logo {
+  color: #FFF;
+    /*color: #FD6250;*/
+  /*color: #444;*/
+}
+.side-nav.a{
+  color: #FD6250 !important;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: white;
+}
+
+
+.orange.rappi {
+    background-color: #FD6250 !important;
+}

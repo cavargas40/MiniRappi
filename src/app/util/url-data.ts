@@ -1,0 +1,1 @@
+export const URL: string = "/app/util/datapruebafront.json";
