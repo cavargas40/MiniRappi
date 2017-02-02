@@ -29,12 +29,12 @@ h2{
 
 [type="radio"].with-gap:checked + label:before {
 border-radius: 50%;
-border: 2px solid #FFF; }
+border: 2px solid #FD6250; }
 
 [type="radio"].with-gap:checked + label:after {
 border-radius: 50%;
-border: 2px solid #FFF;
-background-color: #FFF;
+border: 2px solid #FD6250;
+background-color: #FD6250;
 z-index: 0;
 -webkit-transform: scale(.5);
 -moz-transform: scale(.5);
@@ -46,4 +46,9 @@ transform: scale(.5);
 select {
     display: block !important;
     margin: 0 auto !important;
+}
+
+.checkbox-rappi[type="checkbox"].filled-in:checked + label:after{
+     border: 2px solid #FD6250;
+     background-color: #FD6250;
 }

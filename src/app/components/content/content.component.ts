@@ -11,26 +11,26 @@ import { JsonData, Category, Product } from '../../model/';
 })
 export class ContentComponent implements OnInit {
 
-  /* Datatable Configuration */
+  /* Datatable & Filter Configuration */
   public data: Product[] = [{ available: false, best_seller: false, categories: [0, 0], description: '', id: 0, img: '', name: '', price: 0 }];;
   public filterQuery = "";
   public rowsOnPage = 10;
   public sortBy = "name";
   public sortOrder = "asc";
-
+  public categorySelected:number = -1;
+  public allSelected:string = "all";
+  public mayor30:boolean = false;
+  public menor10:boolean = false;
 
   /* Model Mapping */
-
-  category: Category[] = [{ categori_id: 0, name: '' }];
+  category: Category[] = [{ categori_id: 0, name: '' }] ;
   product: Product[] = [{ available: false, best_seller: false, categories: [0, 0], description: '', id: 0, img: '', name: '', price: 0 }];
-
   information: JsonData = { categories: this.category, products: this.product };
 
   constructor(private rappiData: JsonDataService, private rappiProducts: ProductService) { }
 
   ngOnInit(): void {
-    //this.rappiData.getData().then(res => (this.data = res));
-    this.rappiProducts.getProducts().then(res => (this.data = res));
+    this.rappiData.getData().then(res => (this.information = res));    
   }
 
   /**

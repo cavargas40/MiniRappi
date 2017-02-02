@@ -23,6 +23,10 @@ import { DataFilterPipe } from './pipes/data-filter.pipe';
 
 /*Handle Errors*/
 import { AppError } from './util/app-error';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { CategoryFilterPipe } from './pipes/category-filter.pipe';
+import { AllFilterPipe } from './pipes/all-filter.pipe';
+import { PriceFilterPipe } from './pipes/price-filter.pipe';
 
 
 
@@ -31,7 +35,7 @@ import { AppError } from './util/app-error';
   declarations: [
     AppComponent,
     DataFilterPipe,    
-    PersonDtComponent, NavbarComponent, FooterComponent, ContentComponent, ShoppingCartComponent, DetailsComponent
+    PersonDtComponent, NavbarComponent, FooterComponent, ContentComponent, ShoppingCartComponent, DetailsComponent, CapitalizePipe, CategoryFilterPipe, AllFilterPipe, PriceFilterPipe
   ],
   imports: [
     BrowserModule,
