@@ -16,7 +16,7 @@
       <label class="label-control">Ordenar por</label>
       <select class="browser-default" [(ngModel)]="sortBy">
           <option ngValue="name">Nombre</option>
-          <option [value]="+price">Precio</option>
+          <option ngValue="price">Precio</option>
           <option ngValue="description">Descripcion</option>
           <!--<option [ngValue]="sortByWordLength">City</option>-->
       </select>
@@ -77,11 +77,11 @@
       <input type="checkbox" id="menor10" class="with-gap rappi" name="precioSearch2" [(ngModel)]="menor10" />
       <label for="menor10" class="label-control truncate">Menor a $10.000</label>
     </div>
-    
-  </div>
-<!-- filters end -->
 
-<!-- datatable begin -->
+  </div>
+  <!-- filters end -->
+
+  <!-- datatable begin -->
   <table class="table-responsive highlight" [mfData]="information.products | dataFilter : filterQuery | categoryFilter : categorySelected | allFilter : allSelected | priceFilter : mayor30 : menor10 "
     #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
     <thead>
@@ -95,7 +95,7 @@
           </mfDefaultSorter>
         </th>
         <th data-field="price">
-          <mfDefaultSorter by="+price">
+          <mfDefaultSorter by="price">
             Precio
           </mfDefaultSorter>
         </th>
@@ -109,7 +109,7 @@
       </tr>
     </thead>
 
-    <tbody>      
+    <tbody>
       <!--<tr *ngFor="let product of information.products">        -->
       <tr *ngFor="let product of mf.data">
         <td>
@@ -120,19 +120,18 @@
         </td>
 
         <td>
-          $ {{product.price }}
+          {{product.price | currency:'COP':true:'4.2-2' }}
         </td>
         <td>
           <p>
             {{product.description}}
-
           </p>
         </td>
         <td>
-            <!-- Modal Product Viewer Trigger  -->
-          <a class="modal-trigger waves-effect waves-light btn rappibackcolor" href="#productViewer" (click)="attachEventsPlx(product)" >
+          <!-- Modal Product Viewer Trigger  -->
+          <a class="modal-trigger waves-effect waves-light btn rappibackcolor" href="#productViewer" (click)="attachEventsPlx(product)">
             <i class="material-icons cursorpointer">add_shopping_cart</i>
-          </a>          
+          </a>
         </td>
       </tr>
 
@@ -145,9 +144,9 @@
       </tr>
     </tfoot>
   </table>
-<!-- datatable end -->  
+  <!-- datatable end -->
 
- <!-- Modal Product Viewer Structure -->
+  <!-- Modal Product Viewer Structure -->
   <div id="productViewer" class="modal ">
     <div class="modal-content">
       <h4>Modal Header</h4>

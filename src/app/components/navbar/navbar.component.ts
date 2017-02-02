@@ -1,4 +1,6 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
+
+//import { Product } from '../../model';
 
 //declare var jQuery: any;
 
@@ -9,6 +11,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 })
 
 export class NavbarComponent implements OnInit {
+
+  //@Input() shopped : Product[];
 
   constructor(private el: ElementRef) { }
 
