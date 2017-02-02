@@ -12,17 +12,17 @@ import { PersonService, CategoryService, ProductService, JsonDataService } from 
 /*Components*/
 import { AppComponent } from './app.component';
 import { PersonDtComponent } from './components/person-dt/person-dt.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ContentComponent } from './components/content/content.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { DetailsComponent } from './components/shopping-cart/details/details.component';
 
 /*Pipes*/
 import { DataFilterPipe } from './pipes/data-filter.pipe';
 
 /*Handle Errors*/
 import { AppError } from './util/app-error';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { ContentComponent } from './components/content/content.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { DetailsComponent } from './components/shopping-cart/details/details.component';
 
 
 
@@ -42,6 +42,8 @@ import { DetailsComponent } from './components/shopping-cart/details/details.com
   providers: [
     AppError,
     JsonDataService,
+    ProductService,
+    CategoryService,
     PersonService
   ],
   bootstrap: [AppComponent]

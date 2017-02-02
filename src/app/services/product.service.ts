@@ -15,7 +15,7 @@ export class ProductService {
 
   constructor(private http: Http, private ups: AppError) { }
 
-  getCategories(): Promise<Product[]> {
+  getProducts(): Promise<Product[]> {
     return this.http.get(this.dataUrl)
       .toPromise()
       .then((res) => res.json().products as Product[])

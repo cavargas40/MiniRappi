@@ -2,49 +2,108 @@
   <h2>
     Productos
   </h2>
-
-  <table class="table-responsive highlight">
-    <thead>
-      <tr>
-        <th data-field="img">Foto</th>
-        <th data-field="name">Nombre</th>
-        <th data-field="price">Precio</th>
-        <th data-field="description">Descripcion</th>
-        <th data-field="add">Agregar</th>
-        <!--<th data-field="race" class="hide-on-small-only">Función</th>-->
-      </tr>
-    </thead>
-
-    <tbody>
-      <!--(click)="abretesesamo(guildmember)"-->
-      <tr *ngFor="let product of data.products">        
-        <td>
-          <img class="responsive-img circle" src="{{product.img}}" alt="">
-        </td>
-        <td>
-          {{product.name}}
-        </td>
-
-        <td>
-          ${{product.price}}
-        </td>
-        <td>
-          <p>
-          {{product.description}}
-          </p>
-        </td>
-        <td>
-          <i class="material-icons cursorpointer ">add</i>
-        </td>
-      </tr>
-
-    </tbody>
-
-  </table>
-
-</div>
+  <div class="row">
+    <div class="col s6 m2">
+      <label class="label-control">Filas por pagina</label>
+      <select class="browser-default" [(ngModel)]="rowsOnPage">
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="15">15</option>
+      </select>
+    </div>
+    <div class="col s6 m2">
+      <label class="label-control">Ordenar por</label>
+      <select class="browser-default" [(ngModel)]="sortBy">
+          <option ngValue="name">Nombre</option>
+          <option ngValue="price">Precio</option>
+          <option ngValue="description">Descripcion</option>
+          <!--<option [ngValue]="sortByWordLength">City</option>-->
+      </select>
+    </div>
+    <div class="col s6 m2">
+      <label class="label-control">Orden</label>
+      <select class="browser-default" [(ngModel)]="sortOrder">
+        <option ngValue="asc">Ascendiente</option>
+        <option ngValue="desc">Descendiente</option>                            
+      </select>
+    </div>
+    <div class="col s6 m2">
+      
+    </div>
+    <div class="col s12 m4">
+      <div class="row">
+        <div class="input-field">
+          <i class="material-icons prefix">search</i>
+          <input id="icon_prefix" class="validate" [(ngModel)]="filterQuery">
+          <label for="icon_prefix" class="active">Busca un producto</label>
+        </div>
+      </div>
+    </div>
 
 
+    <table class="table-responsive highlight" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+      [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th data-field="img">
+            Foto
+          </th>
+          <th data-field="name">
+            <mfDefaultSorter by="name">
+              Nombre
+            </mfDefaultSorter>
+          </th>
+          <th data-field="price">
+            <mfDefaultSorter by="price">
+              Precio
+            </mfDefaultSorter>
+          </th>
+          <th data-field="description">
+            <mfDefaultSorter by="description">
+              Descripcion
+            </mfDefaultSorter>
+          </th>
+          <th data-field="add">Agregar</th>
+          <!--<th data-field="race" class="hide-on-small-only">Función</th>-->
+        </tr>
+      </thead>
+
+      <tbody>
+        <!--(click)="abretesesamo(guildmember)"-->
+        <!--<tr *ngFor="let product of information.products">        -->
+        <tr *ngFor="let product of mf.data">
+          <td>
+            <img class="responsive-img circle" src="{{product.img}}" alt="">
+          </td>
+          <td>
+            {{product.name}}
+          </td>
+
+          <td>
+            {{product.price}}
+          </td>
+          <td>
+            <p>
+              {{product.description}}
+            </p>
+          </td>
+          <td>
+            <i class="material-icons cursorpointer ">add</i>
+          </td>
+        </tr>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+
+    </table>
+
+  </div>
 
 
 
@@ -53,7 +112,9 @@
 
 
 
-<!--<div class="container">
+
+
+  <!--<div class="container">
   <div class="section">
     <div class="fixed-action-btn toolbar">
       <a class="btn-floating btn-large red">
@@ -79,7 +140,7 @@
 </div>-->
 
 
-<!--<li class="waves-effect waves-light">
+  <!--<li class="waves-effect waves-light">
           <div class="row">
             <div class="col s12 m12 center-align">              
                 <select class="browser-default center-align valign">
@@ -109,7 +170,7 @@
             
           </p>
         </li>-->
-<!--<a href="#!"><i class="material-icons">insert_chart</i></a>
+  <!--<a href="#!"><i class="material-icons">insert_chart</i></a>
         <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">toc</i></a></li>
         <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>
         <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->
