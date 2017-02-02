@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
-declare var jQuery: any;
+//declare var jQuery: any;
 
 @Component({
   selector: 'app-navbar',
@@ -13,8 +13,8 @@ export class NavbarComponent implements OnInit {
   constructor(private el: ElementRef) { }
 
   ngOnInit() {
-    jQuery(this.el.nativeElement).find('.button-collapse').sideNav();
-    jQuery(this.el.nativeElement).find('.modal').modal();
+    //jQuery(this.el.nativeElement).find('.button-collapse').sideNav();
+    //jQuery(this.el.nativeElement).find('.modal').modal();
   }
 
 }

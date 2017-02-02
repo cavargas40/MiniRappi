@@ -2,6 +2,7 @@
   <h2>
     Productos
   </h2>
+  <!-- filters begin -->
   <div class="row">
     <div class="col s6 m2">
       <label class="label-control">Filas por pagina</label>
@@ -68,18 +69,19 @@
     </div>
 
     <div class="col s6 m2">
-      <input type="checkbox" id="mayor30" class=" with-gap checkbox-rappi" name="precioSearch1" [(ngModel)]="mayor30" />
+      <input type="checkbox" id="mayor30" class=" with-gap rappi" name="precioSearch1" [(ngModel)]="mayor30" />
       <label for="mayor30" class="label-control truncate">Mayor a $30.000</label>
     </div>
 
     <div class="col s6 m2">
-      <input type="checkbox" id="menor10" class="with-gap checkbox-rappi" name="precioSearch2" [(ngModel)]="menor10" />
+      <input type="checkbox" id="menor10" class="with-gap rappi" name="precioSearch2" [(ngModel)]="menor10" />
       <label for="menor10" class="label-control truncate">Menor a $10.000</label>
     </div>
     
   </div>
+<!-- filters end -->
 
-
+<!-- datatable begin -->
   <table class="table-responsive highlight" [mfData]="information.products | dataFilter : filterQuery | categoryFilter : categorySelected | allFilter : allSelected | priceFilter : mayor30 : menor10 "
     #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
     <thead>
@@ -107,8 +109,7 @@
       </tr>
     </thead>
 
-    <tbody>
-      <!--(click)="abretesesamo(guildmember)"-->
+    <tbody>      
       <!--<tr *ngFor="let product of information.products">        -->
       <tr *ngFor="let product of mf.data">
         <td>
@@ -128,7 +129,10 @@
           </p>
         </td>
         <td>
-          <i class="material-icons cursorpointer">add</i>
+            <!-- Modal Product Viewer Trigger  -->
+          <a class="modal-trigger waves-effect waves-light btn rappibackcolor" href="#productViewer" (click)="attachEventsPlx(product)" >
+            <i class="material-icons cursorpointer">add_shopping_cart</i>
+          </a>          
         </td>
       </tr>
 
@@ -140,75 +144,16 @@
         </td>
       </tr>
     </tfoot>
-
   </table>
+<!-- datatable end -->  
 
-
-
-
-
-
-
-
-
-
-  <!--<div class="container">
-  <div class="section">
-    <div class="fixed-action-btn toolbar">
-      <a class="btn-floating btn-large red">
-        <i class="large material-icons">search</i>
-      </a>
-      <ul>
-        <li class="waves-effect waves-light">
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s12 m6">
-                  <i class="material-icons prefix">search</i>
-                  <input id="icon_prefix" type="text" class="validate">
-                  <label for="icon_prefix">Busca un producto</label>
-                </div>
-              </div>
-            </form>
-          </div>
-        </li>
-      </ul>
+ <!-- Modal Product Viewer Structure -->
+  <div id="productViewer" class="modal ">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
   </div>
-</div>-->
-
-
-  <!--<li class="waves-effect waves-light">
-          <div class="row">
-            <div class="col s12 m12 center-align">              
-                <select class="browser-default center-align valign">
-                  <option>Categoria</option>
-                  <option>Ow Yea 1</option>
-                  <option>Ow Yea 2</option>              
-                </select>              
-            </div>
-          </div>
-        </li>
-        <li class="waves-effect waves-light">
-          <p>
-            <input type="radio" id="productStock" class=" with-gap" name="radioSearch" />
-            <label for="productStock" class="white-text truncate">Disponibles</label>
-          </p>
-        </li>
-        <li class="waves-effect waves-light">
-          <p>
-            <input type="radio" id="productEmpty" class=" with-gap" name="radioSearch" />
-            <label for="productEmpty" class="white-text truncate">Agotados</label>
-          </p>
-        </li>
-        <li class="waves-effect waves-light">
-          <p>
-            <input type="radio" id="productBestSeller" class=" with-gap" name="radioSearch" />
-            <label for="productBestSeller" class="white-text truncate">Mas Vendidos</label>
-            
-          </p>
-        </li>-->
-  <!--<a href="#!"><i class="material-icons">insert_chart</i></a>
-        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">toc</i></a></li>
-        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>
-        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->

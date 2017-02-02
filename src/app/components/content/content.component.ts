@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ElementRef} from '@angular/core';
 import { JsonDataService, ProductService } from '../../services/';
-
 import { JsonData, Category, Product } from '../../model/';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-content',
@@ -10,6 +10,10 @@ import { JsonData, Category, Product } from '../../model/';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
+
+  /* Shopping Cart */
+  //@Output() productSelected = new EventEmitter();
+  public shopCart: Product[];
 
   /* Datatable & Filter Configuration */
   public data: Product[] = [{ available: false, best_seller: false, categories: [0, 0], description: '', id: 0, img: '', name: '', price: 0 }];;
@@ -27,25 +31,28 @@ export class ContentComponent implements OnInit {
   product: Product[] = [{ available: false, best_seller: false, categories: [0, 0], description: '', id: 0, img: '', name: '', price: 0 }];
   information: JsonData = { categories: this.category, products: this.product };
 
-  constructor(private rappiData: JsonDataService, private rappiProducts: ProductService) { }
+  constructor(private rappiData: JsonDataService, private rappiProducts: ProductService,
+              private el: ElementRef) { }
 
   ngOnInit(): void {
+    jQuery(this.el.nativeElement).find('.modal').modal();
     this.rappiData.getData().then(res => (this.information = res));    
   }
 
-  /**
- * toInt
- */
-  public toInt(num: string) {
-    return +num;
+  addToCart(product:Product):void{
+    this.shopCart.push(product);    
   }
 
+  deleteToCart(product:Product):void{
+    let index = this.shopCart.indexOf(product);
+    if(index>-1)
+      this.shopCart.splice(index, 1);
+  }
 
-  /**
- * sortByWordLength
- */
-  public sortByWordLength = (a: any) => {
-    return a.city.length;
+  attachEventsPlx(product:Product){
+    console.log("so close "+ product.name);
+    //jQuery(this.el.nativeElement).find('.modal-trigger').leanModal();
+
   }
 
 
