@@ -25,7 +25,7 @@
       <label class="label-control">Orden</label>
       <select class="browser-default" [(ngModel)]="sortOrder">
         <option ngValue="asc">Ascendiente</option>
-        <option ngValue="desc">Descendiente</option>                            
+          <option ngValue="desc">Descendiente</option>                            
       </select>
     </div>
     <div class="col s6 m2">
@@ -113,23 +113,23 @@
       <!--<tr *ngFor="let product of information.products">        -->
       <tr *ngFor="let product of mf.data">
         <td>
-          <img class="responsive-img circle" src="{{product.img}}" alt="">
+          <img class="responsive-img circle" src="{{product?.img}}" alt="">
         </td>
         <td>
-          {{product.name}}
+          {{product?.name}}
         </td>
 
         <td>
-          {{product.price | currency:'COP':true:'4.2-2' }}
+          {{product?.price | currency:'COP':true:'4.2-2' }}
         </td>
         <td>
           <p>
-            {{product.description}}
+            {{product?.description}}
           </p>
         </td>
         <td>
           <!-- Modal Product Viewer Trigger  -->
-          <a class="modal-trigger waves-effect waves-light btn rappibackcolor" href="#productViewer" (click)="attachEventsPlx(product)">
+          <a class="modal-trigger waves-effect waves-light btn rappibackcolor" href="#productViewer" (click)="prepareProduct(product)">
             <i class="material-icons cursorpointer">add_shopping_cart</i>
           </a>
         </td>
@@ -149,10 +149,50 @@
   <!-- Modal Product Viewer Structure -->
   <div id="productViewer" class="modal ">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
+      <h4>{{productSelected?.name }}</h4>
+
+      <div class="row">
+        <div class="col s4 m4">
+          <img class="responsive-img circle" src="{{productSelected?.img}}" alt="">
+        </div>
+        <div class="col s8 m8">
+          <p>{{productSelected?.description }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s3 m2">
+        </div>
+
+        <div class="col s3 m2">
+          <p class="rappicolor">Precio:</p>
+          <p>
+            {{productSelected?.price | currency:'COP':true:'4.2-2' }}
+          </p>
+        </div>
+        <div class="col s3 m2">
+          <p class="rappicolor">Cantidad:</p>
+          <div class="input-field">
+            <input id="quantity" type="number" [(ngModel)]="productSelected.quantity" (change)="GetTotalShop();" min="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+</div>
+</div>
+<div class="col s3 m6">
+  <p class="rappicolor">Total:</p>
+  <h4>{{ productSelected?.total | currency:'COP':true:'4.2-2' }}</h4>
+</div>
+
+  <div *ngIf="!productSelected?.available" class="col s12 m12">
+    <p>
+      El producto no se encuentra disponible en nuestro inventario, intente más tarde.
+    </p>
   </div>
+
+
+</div>
+</div>
+<div class="modal-footer" *ngIf="productSelected?.available">
+  <a class="waves-effect waves-light btn rappibackcolor" href="#" title="Agregar al Carrito" (click)="addToCart(productSelected)">
+    <i class="material-icons cursorpointer">add_shopping_cart</i>
+  </a>
+</div>
+</div>

@@ -59,5 +59,6 @@
       "pipe": true,
       "service": true
     }
-  }
+  },
+  "poll":true
 }

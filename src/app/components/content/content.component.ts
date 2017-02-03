@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { JsonDataService, ProductService } from '../../services/';
 import { JsonData, Category, Product, ShoppingCart } from '../../model/';
 
@@ -14,6 +14,8 @@ export class ContentComponent implements OnInit {
 
   /* Shopping Cart */
   public shoppingCart = new ShoppingCart();
+  public productOnCart: Product[] = []; 
+  public productSelected = new Product();
 
   /* Datatable & Filter Configuration */
   public data = new Product(); // [{ available: false, best_seller: false, categories: [0, 0], description: '', id: 0, img: '', name: '', price: 0 }];;
@@ -36,29 +38,53 @@ export class ContentComponent implements OnInit {
     jQuery(this.el.nativeElement).find('.modal').modal();
     this.rappiData.getData().then(res => {
       this.information = res;
-      console.log("Chupelo 4");
-      let cualquiercosa = this.information.products.map(function (num) {
+      let priceReplaced = this.information.products.map(function (num) {
         num.price = +num.price.toString().replace('.', '');
         return num
       })
-      this.information.products = cualquiercosa;
+      this.information.products = priceReplaced;
     });
+
+    this.getJsonStorage();
   }
 
-  addToCart(product: Product, amount: number): void {
-    product.quantity = amount;
-    this.shoppingCart.products.push(product);
+  ngOnDestroy():void{
+    this.setJsonStorage();
+  }
 
-    localStorage.setItem("shoppingCart",  JSON.stringify(this.shoppingCart));
+  addToCart(product: Product): void {
+    this.productOnCart.push(product);
+    this.setJsonStorage();
+    jQuery(this.el.nativeElement).find('.modal').modal('close');
   }
 
   deleteToCart(product: Product): void {
-    this.shoppingCart.products = this.shoppingCart.products.filter(item=>{item.id !== product.id});
-
-    localStorage.setItem("shoppingCart",  JSON.stringify(this.shoppingCart));
+    this.shoppingCart.products = this.shoppingCart.products.filter(item => { item.id !== product.id });
+    localStorage.setItem("shoppingCart", JSON.stringify(this.shoppingCart));
   }
 
-  attachEvent(product: Product) {
-    console.log("so close " + product.name);
+  prepareProduct(product: Product) {
+    this.productSelected = product;
+    this.productSelected.quantity = 1;
+    this.productSelected.total = this.productSelected.price;
+  }
+
+  GetTotalShop() {
+    this.productSelected.total = this.productSelected.quantity * this.productSelected.price;
+  }
+
+  getJsonStorage() {
+    if (localStorage.getItem("shoppingCart")) {
+      this.productOnCart = JSON.parse(localStorage.getItem("shoppingCart"));
+    }
+    else{
+      this.productOnCart = [];
+    }    
+  }
+
+  setJsonStorage(){
+    if(this.productOnCart){
+      localStorage.setItem("shoppingCart", JSON.stringify(this.productOnCart));
+    }
   }
 }

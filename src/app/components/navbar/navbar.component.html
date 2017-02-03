@@ -6,24 +6,138 @@
     <ul class="right hide-on-med-and-down">
       <!-- Modal Trigger -->
       <li>
-        <a class="modal-trigger" href="#shoppingCart">
+        <a class="modal-trigger" href="#shoppingCart" (click)="refreshCart()">
           <i class="material-icons">shopping_cart</i>
         </a>
       </li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
-      <li >
-        <a class="modal-trigger orange rappi" href="#shoppingCartMobile" onclick="$('.button-collapse').sideNav('hide');" >
-          <i class="material-icons white-text">shopping_cart</i> Carrito de Compra
-        </a>
-      </li>
-    </ul>
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-  </div>
+      <li>
+        <a class="modal-trigger orange rappi" href="#shoppingCartMobile" onclick="$('.button-collapse').sideNav('hide');" (click)="refreshCart()" >
+<i class="material-icons white-text">shopping_cart</i> Carrito de Compra
+</a>
+</li>
+</ul>
+<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+</div>
 </nav>
 
 <!-- Estructura del Modal -->
 
 <!--Carrito de Compra-->
-<app-shopping-cart></app-shopping-cart>
+<!--<div *ngIf="showCart">
+  <app-shopping-cart></app-shopping-cart>
+  <!--<app-shopping-cart [spcart]="productOnCart"></app-shopping-cart>-->
+<!--</div>-->
+
+<div id="shoppingCart" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <!-- shoppingCart Details -->
+    <h4>Carrito de Compra</h4>
+    <p>A continuacion los productos que has agregado a tu carrito de compra.</p>
+
+    <!--{{ checkStorage() }}-->
+    <p *ngIf="productOnCart?.length==0">
+      No se han agregado productos en el carrito de compra.
+    </p>
+
+    <table class="table-responsive highlight" *ngIf="productOnCart?.length!=0">
+      <tr>
+        <td>
+          Foto
+        </td>
+        <td>
+          Producto
+        </td>
+        <td>
+          Cantidad
+        </td>
+        <td>
+          Valor
+        </td>
+        <td>
+          Eliminar
+        </td>
+      </tr>
+      <tr *ngFor="let product of productOnCart">
+        <td>
+          <img class="responsive-img circle" src="{{product?.img}}" alt="">
+        </td>
+        <td>
+          {{product?.name}}
+        </td>
+        <td>
+          {{product?.quantity}}
+        </td>
+        <td>
+          {{product?.price}}
+        </td>
+        <td>
+          <a class="waves-effect waves-light btn rappibackcolor" href="#" (click)="deleteToCart(product)">
+            <i class="material-icons cursorpointer">remove_shopping_cart</i>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
+  </div>
+</div>
+
+<div id="shoppingCartMobile" class="modal bottom-sheet">
+  <div class="modal-content">
+    <!-- shoppingCart Details -->
+    <h4>Carrito de Compra</h4>
+    <p>A continuacion los productos que has agregado a tu carrito de compra.</p>
+
+    <!--{{ checkStorage() }}-->
+    <p *ngIf="productOnCart?.length==0">
+      No se han agregado productos en el carrito de compra.
+    </p>
+
+    <table class="table-responsive highlight" *ngIf="productOnCart?.length!=0">
+      <tr>
+        <td>
+          Foto
+        </td>
+        <td>
+          Producto
+        </td>
+        <td>
+          Cantidad
+        </td>
+        <td>
+          Valor
+        </td>
+        <td>
+          Eliminar
+        </td>
+      </tr>
+      <tr *ngFor="let product of productOnCart">
+        <td>
+          <img class="responsive-img circle" src="{{product?.img}}" alt="">
+        </td>
+        <td>
+          {{product?.name}}
+        </td>
+        <td>
+          {{product?.quantity}}
+        </td>
+        <td>
+          {{product?.price}}
+        </td>
+        <td>
+          <a class="waves-effect waves-light btn rappibackcolor" href="#" (click)="deleteToCart(product)">
+            <i class="material-icons cursorpointer">remove_shopping_cart</i>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
+</div>

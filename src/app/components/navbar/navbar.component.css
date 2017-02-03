@@ -8,6 +8,19 @@ nav .brand-logo {
   color: #FD6250 !important;
 }
 
+h2{
+    color: #FD6250;    
+}
+
+.rappicolor{
+    color: #FD6250;
+}
+
+.rappibackcolor{
+    background: #FD6250;    
+}
+
+
 p {
   line-height: 2rem;
 }
@@ -20,3 +33,8 @@ p {
 .orange.rappi {
     background-color: #FD6250 !important;
 }
+
+h4{
+    color: #FD6250;    
+}
+

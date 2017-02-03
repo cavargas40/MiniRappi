@@ -9,11 +9,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  //@Input() shopped : Product[];
+  //@Input() spcart : Product[];
 
   constructor() { }
 
   ngOnInit() {
+    //console.log(this.spcart);
   }
 
 }
