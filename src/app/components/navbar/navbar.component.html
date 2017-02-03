@@ -23,14 +23,7 @@
 </div>
 </nav>
 
-<!-- Estructura del Modal -->
-
-<!--Carrito de Compra-->
-<!--<div *ngIf="showCart">
-  <app-shopping-cart></app-shopping-cart>
-  <!--<app-shopping-cart [spcart]="productOnCart"></app-shopping-cart>-->
-<!--</div>-->
-
+<!-- Modal Structure -->
 <div id="shoppingCart" class="modal modal-fixed-footer">
   <div class="modal-content">
     <!-- shoppingCart Details -->
@@ -38,53 +31,67 @@
     <p>A continuacion los productos que has agregado a tu carrito de compra.</p>
 
     <!--{{ checkStorage() }}-->
-    <p *ngIf="productOnCart?.length==0">
+    <blockquote *ngIf="productOnCart?.length==0">
       No se han agregado productos en el carrito de compra.
-    </p>
+    </blockquote>
 
     <table class="table-responsive highlight" *ngIf="productOnCart?.length!=0">
-      <tr>
-        <td>
-          Foto
-        </td>
-        <td>
-          Producto
-        </td>
-        <td>
-          Cantidad
-        </td>
-        <td>
-          Valor
-        </td>
-        <td>
-          Eliminar
-        </td>
-      </tr>
-      <tr *ngFor="let product of productOnCart">
-        <td>
-          <img class="responsive-img circle" src="{{product?.img}}" alt="">
-        </td>
-        <td>
-          {{product?.name}}
-        </td>
-        <td>
-          {{product?.quantity}}
-        </td>
-        <td>
-          {{product?.price}}
-        </td>
-        <td>
-          <a class="waves-effect waves-light btn rappibackcolor" href="#" (click)="deleteToCart(product)">
-            <i class="material-icons cursorpointer">remove_shopping_cart</i>
-          </a>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>
+            Foto
+          </th>
+          <th>
+            Producto
+          </th>
+          <th>
+            Cantidad
+          </th>
+          <th>
+            Valor unitario
+          </th>
+          <th>
+            Subtotal
+          </th>
+          <th>
+            Eliminar
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productOnCart">
+          <td>
+            <img class="responsive-img circle" src="{{product?.img}}" alt="">
+          </td>
+          <td>
+            {{product?.name}}
+          </td>
+          <td>
+            {{product?.quantity}}
+          </td>
+          <td>
+            {{product?.price | currency:'COP':true:'4.2-2' }}
+          </td>
+          <td>
+            {{product?.total | currency:'COP':true:'4.2-2' }}
+          </td>
+          <td>
+            <a class="waves-effect waves-light btn rappibackcolor" href="#" (click)="deleteToCart(product)">
+              <i class="material-icons cursorpointer">remove_shopping_cart</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <div class="modal-footer">
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
+    <div class="row" *ngIf="productOnCart?.length>0">
+      <div class="col s12 m12">
+        <h5 class="right-align">Total: {{ totalCart | currency:'COP':true:'4.2-2' }}</h5>
+      </div>
+    </div>
   </div>
+
 </div>
 
 <div id="shoppingCartMobile" class="modal bottom-sheet">
@@ -94,50 +101,64 @@
     <p>A continuacion los productos que has agregado a tu carrito de compra.</p>
 
     <!--{{ checkStorage() }}-->
-    <p *ngIf="productOnCart?.length==0">
+    <blockquote *ngIf="productOnCart?.length==0">
       No se han agregado productos en el carrito de compra.
-    </p>
+    </blockquote>
 
     <table class="table-responsive highlight" *ngIf="productOnCart?.length!=0">
-      <tr>
-        <td>
-          Foto
-        </td>
-        <td>
-          Producto
-        </td>
-        <td>
-          Cantidad
-        </td>
-        <td>
-          Valor
-        </td>
-        <td>
-          Eliminar
-        </td>
-      </tr>
-      <tr *ngFor="let product of productOnCart">
-        <td>
-          <img class="responsive-img circle" src="{{product?.img}}" alt="">
-        </td>
-        <td>
-          {{product?.name}}
-        </td>
-        <td>
-          {{product?.quantity}}
-        </td>
-        <td>
-          {{product?.price}}
-        </td>
-        <td>
-          <a class="waves-effect waves-light btn rappibackcolor" href="#" (click)="deleteToCart(product)">
-            <i class="material-icons cursorpointer">remove_shopping_cart</i>
-          </a>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>
+            Foto
+          </th>
+          <th>
+            Producto
+          </th>
+          <th>
+            Cantidad
+          </th>
+          <th>
+            Valor unitario
+          </th>
+          <th>
+            Subtotal
+          </th>
+          <th>
+            Eliminar
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productOnCart">
+          <td>
+            <img class="responsive-img circle" src="{{product?.img}}" alt="">
+          </td>
+          <td>
+            {{product?.name}}
+          </td>
+          <td>
+            {{product?.quantity}}
+          </td>
+          <td>
+            {{product?.price | currency:'COP':true:'4.2-2' }}
+          </td>
+          <td>
+            {{product?.total | currency:'COP':true:'4.2-2' }}
+          </td>
+          <td>
+            <a class="waves-effect waves-light btn rappibackcolor" href="#" (click)="deleteToCart(product)">
+              <i class="material-icons cursorpointer">remove_shopping_cart</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
-
-  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Disagree</a>
+  <div class="modal-footer">
+    <div class="row" *ngIf="productOnCart?.length>0">
+      <div class="col s12 m12">
+        <h5 class="right-align">Total: {{ totalCart | currency:'COP':true:'4.2-2' }}</h5>
+      </div>
+    </div>
+  </div>
 </div>

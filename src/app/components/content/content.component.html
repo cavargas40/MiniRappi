@@ -5,7 +5,7 @@
   <!-- filters begin -->
   <div class="row">
     <div class="col s6 m2">
-      <label class="label-control">Filas por pagina</label>
+      <label class="label-control">Filas por página</label>
       <select class="browser-default" [(ngModel)]="rowsOnPage">
         <option [ngValue]="5">5</option>
         <option [ngValue]="10">10</option>
@@ -17,8 +17,7 @@
       <select class="browser-default" [(ngModel)]="sortBy">
           <option ngValue="name">Nombre</option>
           <option ngValue="price">Precio</option>
-          <option ngValue="description">Descripcion</option>
-          <!--<option [ngValue]="sortByWordLength">City</option>-->
+          <option ngValue="description" class="hide-on-small-only">Descripción</option>          
       </select>
     </div>
     <div class="col s6 m2">
@@ -65,7 +64,7 @@
 
     <div class="col s6 m2">
       <input type="radio" id="productBestSeller" class=" with-gap" name="radioSearch" value="best" [(ngModel)]="allSelected" />
-      <label for="productBestSeller" class="label-control truncate">Mas Vendidos</label>
+      <label for="productBestSeller" class="label-control truncate">Más Vendidos</label>
     </div>
 
     <div class="col s6 m2">
@@ -99,18 +98,15 @@
             Precio
           </mfDefaultSorter>
         </th>
-        <th data-field="description">
+        <th data-field="description" class="hide-on-small-only">
           <mfDefaultSorter by="description">
-            Descripcion
+            Descripción
           </mfDefaultSorter>
         </th>
-        <th data-field="add">Agregar</th>
-        <!--<th data-field="race" class="hide-on-small-only">Función</th>-->
+        <th data-field="add">Agregar</th>        
       </tr>
     </thead>
-
     <tbody>
-      <!--<tr *ngFor="let product of information.products">        -->
       <tr *ngFor="let product of mf.data">
         <td>
           <img class="responsive-img circle" src="{{product?.img}}" alt="">
@@ -122,7 +118,7 @@
         <td>
           {{product?.price | currency:'COP':true:'4.2-2' }}
         </td>
-        <td>
+        <td class="hide-on-small-only">  
           <p>
             {{product?.description}}
           </p>
@@ -134,7 +130,6 @@
           </a>
         </td>
       </tr>
-
     </tbody>
     <tfoot>
       <tr>
@@ -161,38 +156,33 @@
       </div>
 
       <div class="row">
-        <div class="col s3 m2">
-        </div>
-
-        <div class="col s3 m2">
+        <div class="col s6 m2 offset-m2">
           <p class="rappicolor">Precio:</p>
-          <p>
+          <p style="margin-top: 25px;" >
             {{productSelected?.price | currency:'COP':true:'4.2-2' }}
           </p>
         </div>
-        <div class="col s3 m2">
+        <div class="col s6 m2 ">
           <p class="rappicolor">Cantidad:</p>
           <div class="input-field">
             <input id="quantity" type="number" [(ngModel)]="productSelected.quantity" (change)="GetTotalShop();" min="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
-</div>
-</div>
-<div class="col s3 m6">
-  <p class="rappicolor">Total:</p>
-  <h4>{{ productSelected?.total | currency:'COP':true:'4.2-2' }}</h4>
-</div>
-
-  <div *ngIf="!productSelected?.available" class="col s12 m12">
-    <p>
-      El producto no se encuentra disponible en nuestro inventario, intente más tarde.
-    </p>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <p class="rappicolor">Total:</p>
+          <h4>{{ productSelected?.total | currency:'COP':true:'4.2-2' }}</h4>
+        </div>
+        <div class="col s12 m12 center" *ngIf="productSelected?.available">
+          <a class="waves-effect waves-light btn rappibackcolor" href="#" title="Agregar al Carrito" (click)="addToCart(productSelected)">
+            <i class="material-icons cursorpointer">add_shopping_cart</i>
+          </a>
+        </div>
+        <div *ngIf="!productSelected?.available" class="col s12 m12 center bold">
+          <blockquote>
+            El producto no se encuentra disponible en nuestro inventario, intente más tarde.
+          </blockquote>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-</div>
-</div>
-<div class="modal-footer" *ngIf="productSelected?.available">
-  <a class="waves-effect waves-light btn rappibackcolor" href="#" title="Agregar al Carrito" (click)="addToCart(productSelected)">
-    <i class="material-icons cursorpointer">add_shopping_cart</i>
-  </a>
-</div>
-</div>
+</div>  

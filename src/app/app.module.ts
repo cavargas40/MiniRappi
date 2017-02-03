@@ -7,35 +7,35 @@ import { HttpModule } from '@angular/http';
 import { DataTableModule } from 'angular2-datatable';
 
 /*Services*/
-import { PersonService, CategoryService, ProductService, JsonDataService } from './services/';
+import { CategoryService, ProductService, JsonDataService, ToastService } from './services/';
 
 /*Components*/
 import { AppComponent } from './app.component';
-import { PersonDtComponent } from './components/person-dt/person-dt.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContentComponent } from './components/content/content.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { DetailsComponent } from './components/shopping-cart/details/details.component';
 
 /*Pipes*/
 import { DataFilterPipe } from './pipes/data-filter.pipe';
-
-/*Handle Errors*/
-import { AppError } from './util/app-error';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { CategoryFilterPipe } from './pipes/category-filter.pipe';
 import { AllFilterPipe } from './pipes/all-filter.pipe';
 import { PriceFilterPipe } from './pipes/price-filter.pipe';
 
-
-
+/*Handle Errors*/
+import { AppError } from './util/app-error';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DataFilterPipe,    
-    PersonDtComponent, NavbarComponent, FooterComponent, ContentComponent, ShoppingCartComponent, DetailsComponent, CapitalizePipe, CategoryFilterPipe, AllFilterPipe, PriceFilterPipe
+    DataFilterPipe,
+    NavbarComponent, 
+    FooterComponent, 
+    ContentComponent, 
+    CapitalizePipe, 
+    CategoryFilterPipe, 
+    AllFilterPipe, 
+    PriceFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +48,7 @@ import { PriceFilterPipe } from './pipes/price-filter.pipe';
     JsonDataService,
     ProductService,
     CategoryService,
-    PersonService
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

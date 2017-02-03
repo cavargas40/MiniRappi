@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
-import { JsonDataService, ProductService } from '../../services/';
+import { JsonDataService, ProductService, ToastService } from '../../services/';
 import { JsonData, Category, Product, ShoppingCart } from '../../model/';
 
 
@@ -13,8 +13,7 @@ declare var jQuery: any;
 export class ContentComponent implements OnInit {
 
   /* Shopping Cart */
-  public shoppingCart = new ShoppingCart();
-  public productOnCart: Product[] = []; 
+  public productOnCart: Product[] = [];
   public productSelected = new Product();
 
   /* Datatable & Filter Configuration */
@@ -32,59 +31,73 @@ export class ContentComponent implements OnInit {
   public information: JsonData = new JsonData();
 
   constructor(private rappiData: JsonDataService, private rappiProducts: ProductService,
-    private el: ElementRef) { }
+    private el: ElementRef, private material: ToastService) { }
 
   ngOnInit(): void {
     jQuery(this.el.nativeElement).find('.modal').modal();
+
     this.rappiData.getData().then(res => {
       this.information = res;
       let priceReplaced = this.information.products.map(function (num) {
         num.price = +num.price.toString().replace('.', '');
         return num
-      })
+      });
       this.information.products = priceReplaced;
     });
 
     this.getJsonStorage();
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.setJsonStorage();
-  }
-
-  addToCart(product: Product): void {
-    this.productOnCart.push(product);
-    this.setJsonStorage();
-    jQuery(this.el.nativeElement).find('.modal').modal('close');
-  }
-
-  deleteToCart(product: Product): void {
-    this.shoppingCart.products = this.shoppingCart.products.filter(item => { item.id !== product.id });
-    localStorage.setItem("shoppingCart", JSON.stringify(this.shoppingCart));
   }
 
   prepareProduct(product: Product) {
+    let ProductInCart = this.productOnCart.filter(item => item.id == product.id);
+    if (ProductInCart.length > 0)
+      product = ProductInCart[0];
+
     this.productSelected = product;
-    this.productSelected.quantity = 1;
-    this.productSelected.total = this.productSelected.price;
+    this.productSelected.quantity = this.productSelected.quantity == null || this.productSelected.quantity == 0 ? 1 : this.productSelected.quantity;
+    this.productSelected.total = this.productSelected.price * this.productSelected.quantity;
   }
+
+  //add one product to the ShoppingCart
+  addToCart(product: Product): void {
+    //si existe en el carro
+    this.productOnCart = this.productOnCart.filter(item => item.id != product.id);
+    this.productOnCart.push(product);
+    this.setJsonStorage();
+    this.modal('close');
+    this.material.toast('Se agrego el producto correctamente!', 4000, 'rounded');
+  }
+
+
 
   GetTotalShop() {
     this.productSelected.total = this.productSelected.quantity * this.productSelected.price;
   }
 
+  /* Obtiene el carrito de compras del localStorage */
   getJsonStorage() {
     if (localStorage.getItem("shoppingCart")) {
       this.productOnCart = JSON.parse(localStorage.getItem("shoppingCart"));
     }
-    else{
+    else {
       this.productOnCart = [];
-    }    
+    }
   }
 
-  setJsonStorage(){
-    if(this.productOnCart){
+  /* Guarda el carrito de compras en el localStorage */
+  setJsonStorage() {
+    if (this.productOnCart) {
       localStorage.setItem("shoppingCart", JSON.stringify(this.productOnCart));
+    }
+  }
+
+  modal(action: string) {
+    if (action == 'close') {
+      jQuery(this.el.nativeElement).find('.modal').modal('close');
     }
   }
 }
