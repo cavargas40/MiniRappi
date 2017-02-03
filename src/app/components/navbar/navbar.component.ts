@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
     this.getJsonStorage();
   }
 
+  //get shopping cart of local storage
   getJsonStorage() {
     if (localStorage.getItem("shoppingCart")) {
       this.productOnCart = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -34,12 +35,14 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  //save shopping cart in localStorage
   setJsonStorage() {
     if (this.productOnCart) {
       localStorage.setItem("shoppingCart", JSON.stringify(this.productOnCart));
     }
   }
 
+  //delete one product to the ShoppingCart and notify to the user
   deleteToCart(product: Product): void {
     this.productOnCart = this.productOnCart.filter(item => item.id != product.id);
     localStorage.setItem("shoppingCart", JSON.stringify(this.productOnCart));
@@ -48,11 +51,13 @@ export class NavbarComponent implements OnInit {
     this.getTotalCart();
   }
 
+  //refresh the data of the shopping cart
   refreshCart() {
     this.getJsonStorage();
     this.getTotalCart();
   }
 
+  //get the total value of shopping cart products
   getTotalCart() {
     if (this.productOnCart.length)
       this.totalCart = this.productOnCart.reduce(function (sum, current) { return sum + current.total }, 0)

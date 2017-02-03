@@ -34,8 +34,9 @@ export class ContentComponent implements OnInit {
     private el: ElementRef, private material: ToastService) { }
 
   ngOnInit(): void {
-    jQuery(this.el.nativeElement).find('.modal').modal();
+    this.modal('bind');
 
+    //get products of json and replace '.' in the prices
     this.rappiData.getData().then(res => {
       this.information = res;
       let priceReplaced = this.information.products.map(function (num) {
@@ -44,7 +45,7 @@ export class ContentComponent implements OnInit {
       });
       this.information.products = priceReplaced;
     });
-
+    
     this.getJsonStorage();
   }
 
@@ -52,6 +53,7 @@ export class ContentComponent implements OnInit {
     this.setJsonStorage();
   }
 
+  //prepare product for view on "preadd" to cart
   prepareProduct(product: Product) {
     let ProductInCart = this.productOnCart.filter(item => item.id == product.id);
     if (ProductInCart.length > 0)
@@ -62,9 +64,8 @@ export class ContentComponent implements OnInit {
     this.productSelected.total = this.productSelected.price * this.productSelected.quantity;
   }
 
-  //add one product to the ShoppingCart
-  addToCart(product: Product): void {
-    //si existe en el carro
+  //add one product to the ShoppingCart and notify to the user
+  addToCart(product: Product): void {    
     this.productOnCart = this.productOnCart.filter(item => item.id != product.id);
     this.productOnCart.push(product);
     this.setJsonStorage();
@@ -72,13 +73,12 @@ export class ContentComponent implements OnInit {
     this.material.toast('Se agrego el producto correctamente!', 4000, 'rounded');
   }
 
-
-
+  //get the total value of the actual shop
   GetTotalShop() {
     this.productSelected.total = this.productSelected.quantity * this.productSelected.price;
   }
 
-  /* Obtiene el carrito de compras del localStorage */
+  //get shopping cart of local storage
   getJsonStorage() {
     if (localStorage.getItem("shoppingCart")) {
       this.productOnCart = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -88,16 +88,19 @@ export class ContentComponent implements OnInit {
     }
   }
 
-  /* Guarda el carrito de compras en el localStorage */
+  //save shopping cart in localStorage
   setJsonStorage() {
     if (this.productOnCart) {
       localStorage.setItem("shoppingCart", JSON.stringify(this.productOnCart));
     }
   }
 
+  //initialize or close modals!
   modal(action: string) {
     if (action == 'close') {
       jQuery(this.el.nativeElement).find('.modal').modal('close');
+    }else if(action == 'bind'){
+      jQuery(this.el.nativeElement).find('.modal').modal();
     }
   }
 }

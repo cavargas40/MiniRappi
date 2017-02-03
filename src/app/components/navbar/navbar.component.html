@@ -15,22 +15,20 @@
     <ul id="nav-mobile" class="side-nav">
       <li>
         <a class="modal-trigger orange rappi" href="#shoppingCartMobile" onclick="$('.button-collapse').sideNav('hide');" (click)="refreshCart()" >
-<i class="material-icons white-text">shopping_cart</i> Carrito de Compra
-</a>
-</li>
-</ul>
-<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-</div>
+          <i class="material-icons white-text">shopping_cart</i> Carrito de Compra
+        </a>
+      </li>
+    </ul>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
 </nav>
 
 <!-- Modal Structure -->
 <div id="shoppingCart" class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <!-- shoppingCart Details -->
+  <div class="modal-content">    
     <h4>Carrito de Compra</h4>
     <p>A continuacion los productos que has agregado a tu carrito de compra.</p>
-
-    <!--{{ checkStorage() }}-->
+    
     <blockquote *ngIf="productOnCart?.length==0">
       No se han agregado productos en el carrito de compra.
     </blockquote>
@@ -91,16 +89,14 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <div id="shoppingCartMobile" class="modal bottom-sheet">
   <div class="modal-content">
-    <!-- shoppingCart Details -->
+    
     <h4>Carrito de Compra</h4>
     <p>A continuacion los productos que has agregado a tu carrito de compra.</p>
-
-    <!--{{ checkStorage() }}-->
+    
     <blockquote *ngIf="productOnCart?.length==0">
       No se han agregado productos en el carrito de compra.
     </blockquote>

@@ -15,6 +15,7 @@ export class ProductService {
 
   constructor(private http: Http, private ups: AppError) { }
 
+  //get products of the Json and map them!
   getProducts(): Promise<Product[]> {
     return this.http.get(this.dataUrl)
       .toPromise()

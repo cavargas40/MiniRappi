@@ -15,6 +15,7 @@ export class JsonDataService {
 
   constructor(private http: Http, private ups: AppError) { }
 
+  //get categories and products of the Json and map them!
   getData(): Promise<JsonData> {
     return this.http.get(this.dataUrl)
       .toPromise()
